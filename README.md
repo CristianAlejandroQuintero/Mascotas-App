@@ -9,10 +9,8 @@ Currently, two official plugins are available:
 
 ## Guardado de citas
 
-Ejecuta `npm run dev` para iniciar la aplicación junto con la API local `/api/citas`.
-Al enviar el formulario, la cita se añade a `src/citas.json` y permanece guardada
-al recargar. La API permite consultar las citas con `GET /api/citas` y registrar
-una nueva mediante `POST /api/citas`. Cada cita usa `correo`, `nombreMascota`,
+Las citas se guardan en `localStorage` bajo la clave `mascotasProAppointments`
+y permanecen en el mismo navegador al recargar. Cada cita usa `correo`, `nombreMascota`,
 `tipoCita`, `fecha`, `hora`, `detalles` y `estado`; `estado` acepta `pendiente`
 o `completada`. En "Mis citas", la lista de pendientes y el historial se separan
 por ese estado.
@@ -45,12 +43,9 @@ Los mensajes enviados desde Contacto se guardan en `localStorage` bajo
 Si existen mensajes guardados con campos adicionales de versiones anteriores,
 se normalizan a esta estructura al abrir el panel administrativo.
 
-Esta escritura en archivo está habilitada para desarrollo local. Para publicar la
-aplicación en GitHub Pages, las citas se guardan en el `localStorage` del
-navegador. Ese almacenamiento es propio de cada dispositivo y no comparte citas
-entre visitantes ni con el panel administrativo en otros dispositivos. Para
-gestionar citas de forma centralizada, conecta los endpoints a un backend y
-almacenamiento persistente de producción.
+Ese almacenamiento es propio de cada navegador y no comparte citas entre
+visitantes ni entre dispositivos. Para gestionar citas de forma centralizada,
+conecta la aplicación a un backend y almacenamiento persistente.
 
 ## Publicar en GitHub Pages
 
@@ -60,9 +55,9 @@ abre **Settings → Pages** y selecciona **GitHub Actions** como fuente de
 despliegue. El sitio queda disponible en
 <https://cristianalejandroquintero.github.io/Mascotas-App/>.
 
-El router usa el prefijo `/Mascotas-App/` configurado en Vite, y el flujo
-publica una página `404.html` para que las rutas internas también funcionen al
-recargar o abrir un enlace directamente.
+El router usa el prefijo `/Mascotas-App` y Vite publica los recursos con la
+base `/Mascotas-App/`. El flujo publica una página `404.html` para que las
+rutas internas también funcionen al recargar o abrir un enlace directamente.
 
 ## React Compiler
 
