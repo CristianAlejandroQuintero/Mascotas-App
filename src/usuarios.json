@@ -1,0 +1,12 @@
+[
+  {
+    "correo": "admin@mascotaspro.com",
+    "rol": "admin",
+    "password": "1234"
+  },
+  {
+    "correo": "trabajador@mascotaspro.com",
+    "rol": "trabajador",
+    "password": "abcd"
+  }
+]

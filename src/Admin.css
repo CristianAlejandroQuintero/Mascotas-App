@@ -1,0 +1,261 @@
+.admin-page {
+  min-height: 60vh;
+  padding-top: 38px;
+  padding-bottom: 76px;
+}
+
+.admin-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.admin-header h1 {
+  margin: 10px 0;
+  color: var(--ink);
+  font-size: clamp(34px, 8vw, 50px);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1.1;
+}
+
+.admin-header p {
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.admin-header strong {
+  color: var(--ink);
+}
+
+.admin-header .button {
+  flex-shrink: 0;
+}
+
+.admin-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-logout {
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-error {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fff0ed;
+  color: #a5281e;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-section {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+}
+
+.admin-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.admin-section-heading h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin: 7px 0 0;
+  color: var(--ink);
+  font-size: clamp(21px, 5vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.admin-section-heading h2 span,
+.admin-appointment-group h3 span {
+  display: inline-grid;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--mint);
+  color: var(--green-dark);
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.admin-appointment-group + .admin-appointment-group {
+  margin-top: 24px;
+}
+
+.admin-appointment-group h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.admin-empty {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.admin-appointments,
+.admin-messages {
+  display: grid;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-appointments > li,
+.admin-messages > li {
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--paper);
+}
+
+.admin-appointment-heading,
+.admin-message-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.admin-status {
+  padding: 4px 9px;
+  border-radius: 20px;
+  background: #fff4dc;
+  color: #805a13;
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: capitalize;
+}
+
+.admin-status.is-completada {
+  background: #e4f3e8;
+  color: #2d6746;
+}
+
+.admin-appointment-content p,
+.admin-messages p {
+  margin-top: 7px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.admin-appointment-content p b {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.admin-appointment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.admin-appointment-actions button {
+  min-height: 35px;
+  padding: 7px 10px;
+  border: 1px solid #cfe2d3;
+  border-radius: 8px;
+  background: #edf6ef;
+  color: var(--green-dark);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.admin-appointment-actions .admin-delete-button {
+  border-color: #f0d2cc;
+  background: #fff4f1;
+  color: #a5281e;
+}
+
+.admin-appointment-actions button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.admin-message-heading time {
+  color: var(--ink-soft);
+  font-size: 11px;
+}
+
+.admin-messages > li > a {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.admin-messages p {
+  margin-bottom: 0;
+  white-space: pre-wrap;
+}
+
+@media (min-width: 700px) {
+  .admin-page {
+    padding-top: 52px;
+    padding-bottom: 90px;
+  }
+
+  .admin-header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .admin-section {
+    padding: 28px;
+  }
+
+  .admin-appointments > li {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .admin-appointment-actions {
+    flex-shrink: 0;
+    margin-top: 0;
+  }
+}

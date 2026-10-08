@@ -1,0 +1,29 @@
+[
+  {
+    "correo": "usuario@ejemplo.com",
+    "nombreMascota": "Firulais",
+    "tipoCita": "Veterinaria",
+    "fecha": "2026-10-15",
+    "hora": "10:00",
+    "detalles": "Consulta general",
+    "estado": "pendiente"
+  },
+  {
+    "correo": "crispiquiti@gmail.com",
+    "nombreMascota": "Cristian Alejandro",
+    "tipoCita": "Funerarios",
+    "fecha": "2026-10-10",
+    "hora": "12:24",
+    "detalles": "Protocolo de despedida — test",
+    "estado": "completada"
+  },
+  {
+    "correo": "crispiquiti@gmail.com",
+    "nombreMascota": "Cristian Alejandro",
+    "tipoCita": "Funerarios",
+    "fecha": "2026-10-10",
+    "hora": "12:26",
+    "detalles": "Orientación sobre cremación",
+    "estado": "pendiente"
+  }
+]
