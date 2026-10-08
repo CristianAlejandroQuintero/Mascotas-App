@@ -30,6 +30,14 @@ jobs:
         run: npm ci
       - name: Build site
         run: npm run build
+      - name: Verify production output
+        run: |
+          if grep -q 'src="/src/main.jsx"' dist/index.html; then
+            echo "::error::dist/index.html contiene la entrada fuente de Vite, no el HTML compilado."
+            exit 1
+          fi
+          grep -Eq '<script type="module" crossorigin src="/Mascotas-App/assets/[^"]+\.js"' dist/index.html
+          test -f dist/favicon.svg
       - name: Configure SPA fallback
         run: cp dist/index.html dist/404.html
       - name: Upload Pages artifact

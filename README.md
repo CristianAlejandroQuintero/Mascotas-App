@@ -58,6 +58,10 @@ despliegue. El sitio queda disponible en
 El router usa el prefijo `/Mascotas-App` y Vite publica los recursos con la
 base `/Mascotas-App/`. El flujo publica una página `404.html` para que las
 rutas internas también funcionen al recargar o abrir un enlace directamente.
+Si el navegador solicita `/src/main.jsx`, Pages todavía está sirviendo la rama
+del repositorio: selecciona **GitHub Actions** en **Settings → Pages → Build
+and deployment → Source**. El workflow valida que el artefacto `dist` incluya
+el HTML y JavaScript compilados antes de publicarlo.
 
 ## React Compiler
 
