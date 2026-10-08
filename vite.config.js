@@ -155,4 +155,5 @@ function appointmentsApi() {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [appointmentsApi(), react()],
+  base: '/Mascotas-App/',
 })
