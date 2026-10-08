@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import citasIniciales from './citas.json'
+import { useCitas } from './CitasContext.jsx'
 import './Citas.css'
 
 const appointmentOptionsByType = {
@@ -42,12 +42,13 @@ function AppointmentList({ title, appointments, emptyMessage }) {
 }
 
 function Citas() {
-  const [citas, setCitas] = useState(() => citasIniciales.map((cita) => ({ ...cita })))
+  const { citas, agregarCita, storageError } = useCitas()
   const [correo, setCorreo] = useState('')
   const [correoBuscado, setCorreoBuscado] = useState('')
   const [selectedService, setSelectedService] = useState('')
   const [selectedReason, setSelectedReason] = useState('')
   const [confirmation, setConfirmation] = useState('')
+  const [bookingError, setBookingError] = useState('')
 
   const citasEncontradas = useMemo(() => {
     if (!correoBuscado) return []
@@ -71,7 +72,7 @@ function Citas() {
     setConfirmation('')
   }
 
-  function handleBooking(event) {
+  async function handleBooking(event) {
     event.preventDefault()
     const form = event.currentTarget
     const formData = new FormData(form)
@@ -88,13 +89,20 @@ function Citas() {
       estado: 'pendiente',
     }
 
-    setCitas((citasActuales) => [...citasActuales, nuevaCita])
-    setCorreo(nuevaCita.correo)
-    setCorreoBuscado(nuevaCita.correo.toLowerCase())
-    setConfirmation('Cita agregada a la lista de citas en memoria.')
-    setSelectedService('')
-    setSelectedReason('')
-    form.reset()
+    setBookingError('')
+    setConfirmation('')
+    try {
+      await agregarCita(nuevaCita)
+      setCorreo(nuevaCita.correo)
+      setCorreoBuscado(nuevaCita.correo.toLowerCase())
+      setConfirmation('Cita guardada correctamente.')
+      setSelectedService('')
+      setSelectedReason('')
+      form.reset()
+    } catch (error) {
+      console.error('No se pudo guardar la cita.', error)
+      setBookingError('No se pudo guardar la cita. Inténtalo de nuevo.')
+    }
   }
 
   return (
@@ -121,6 +129,8 @@ function Citas() {
         </div>
       </form>
 
+      {storageError && <p className="appointments-no-results" role="alert">{storageError}</p>}
+      {bookingError && <p className="appointments-no-results" role="alert">{bookingError}</p>}
       {confirmation && <p className="appointments-confirmation" role="status">{confirmation}</p>}
 
       {correoBuscado && (

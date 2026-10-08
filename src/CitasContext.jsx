@@ -9,12 +9,43 @@ import {
 import citasIniciales from './citas.json'
 
 const CitasContext = createContext(null)
+const appointmentsStorageKey = 'mascotasProAppointments'
+
+function getInitialState() {
+  if (import.meta.env.DEV) {
+    return { citas: citasIniciales, storageError: '' }
+  }
+
+  try {
+    const storedAppointments = window.localStorage.getItem(appointmentsStorageKey)
+    if (storedAppointments === null) {
+      return { citas: citasIniciales, storageError: '' }
+    }
+
+    const parsedAppointments = JSON.parse(storedAppointments)
+    if (!Array.isArray(parsedAppointments)) {
+      throw new Error('El almacenamiento local no contiene una lista de citas.')
+    }
+    return { citas: parsedAppointments, storageError: '' }
+  } catch (error) {
+    console.error('No se pudieron cargar las citas desde localStorage.', error)
+    return {
+      citas: citasIniciales,
+      storageError: 'No se pudieron cargar las citas guardadas en este dispositivo.',
+    }
+  }
+}
 
 function CitasProvider({ children }) {
-  const [citas, setCitas] = useState(citasIniciales)
-  const [storageError, setStorageError] = useState('')
+  const [initialState] = useState(getInitialState)
+  const [citas, setCitas] = useState(initialState.citas)
+  const [storageError, setStorageError] = useState(initialState.storageError)
 
   useEffect(() => {
+    if (!import.meta.env.DEV) {
+      return undefined
+    }
+
     let active = true
 
     fetch('/api/citas')
@@ -32,7 +63,7 @@ function CitasProvider({ children }) {
           setCitas(citasGuardadas)
           try {
             window.localStorage.setItem(
-              'mascotasProAppointments',
+              appointmentsStorageKey,
               JSON.stringify(citasGuardadas),
             )
             setStorageError('')
@@ -56,6 +87,17 @@ function CitasProvider({ children }) {
 
   const agregarCita = useCallback(async (cita) => {
     try {
+      if (!import.meta.env.DEV) {
+        const updatedAppointments = [...citas, cita]
+        window.localStorage.setItem(
+          appointmentsStorageKey,
+          JSON.stringify(updatedAppointments),
+        )
+        setCitas(updatedAppointments)
+        setStorageError('')
+        return cita
+      }
+
       const response = await fetch('/api/citas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -73,7 +115,7 @@ function CitasProvider({ children }) {
       setCitas(result.appointments)
       try {
         window.localStorage.setItem(
-          'mascotasProAppointments',
+          appointmentsStorageKey,
           JSON.stringify(result.appointments),
         )
       } catch (error) {
@@ -86,13 +128,23 @@ function CitasProvider({ children }) {
       setStorageError('')
       return result.appointment
     } catch (error) {
-      setStorageError('No se pudo guardar la cita en citas.json.')
+      setStorageError('No se pudo guardar la cita en el almacenamiento disponible.')
       throw error
     }
-  }, [])
+  }, [citas])
 
   const reemplazarCitas = useCallback(async (citasActualizadas) => {
     try {
+      if (!import.meta.env.DEV) {
+        window.localStorage.setItem(
+          appointmentsStorageKey,
+          JSON.stringify(citasActualizadas),
+        )
+        setCitas(citasActualizadas)
+        setStorageError('')
+        return citasActualizadas
+      }
+
       const response = await fetch('/api/citas', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -110,7 +162,7 @@ function CitasProvider({ children }) {
       setCitas(result.appointments)
       try {
         window.localStorage.setItem(
-          'mascotasProAppointments',
+          appointmentsStorageKey,
           JSON.stringify(result.appointments),
         )
       } catch (error) {

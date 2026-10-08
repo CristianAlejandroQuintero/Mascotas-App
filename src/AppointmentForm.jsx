@@ -71,9 +71,7 @@ function AppointmentForm({
     try {
       const savedAppointment = await agregarCita(appointment)
       form.reset()
-      window.alert(
-        `Cita guardada en citas.json correctamente.\n\n${JSON.stringify(savedAppointment, null, 2)}`,
-      )
+      window.alert(`Cita solicitada correctamente para ${savedAppointment.nombreMascota}.`)
     } catch (error) {
       console.error('No se pudo completar el agendamiento.', error)
       setSubmitError(error.message || 'No se pudo guardar la cita. Inténtalo de nuevo.')

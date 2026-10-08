@@ -46,8 +46,23 @@ Si existen mensajes guardados con campos adicionales de versiones anteriores,
 se normalizan a esta estructura al abrir el panel administrativo.
 
 Esta escritura en archivo está habilitada para desarrollo local. Para publicar la
-aplicación, conecta los endpoints a un backend y almacenamiento persistente de
-producción.
+aplicación en GitHub Pages, las citas se guardan en el `localStorage` del
+navegador. Ese almacenamiento es propio de cada dispositivo y no comparte citas
+entre visitantes ni con el panel administrativo en otros dispositivos. Para
+gestionar citas de forma centralizada, conecta los endpoints a un backend y
+almacenamiento persistente de producción.
+
+## Publicar en GitHub Pages
+
+El flujo `.github/workflows/deploy.yml` construye y publica el sitio al hacer
+push a `main` o al ejecutarlo manualmente desde GitHub Actions. En el repositorio,
+abre **Settings → Pages** y selecciona **GitHub Actions** como fuente de
+despliegue. El sitio queda disponible en
+<https://cristianalejandroquintero.github.io/Mascotas-App/>.
+
+El router usa el prefijo `/Mascotas-App/` configurado en Vite, y el flujo
+publica una página `404.html` para que las rutas internas también funcionen al
+recargar o abrir un enlace directamente.
 
 ## React Compiler
 
